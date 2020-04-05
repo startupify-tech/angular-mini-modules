@@ -1,0 +1,21 @@
+.notification-panel{
+  margin-left: 300px;
+  margin-top: 10px;
+  background-color: #BCDFDC;
+  display:flex;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 50vw;
+  border: 2px solid blue;
+  border-radius: 3px;
+}
+
+.notification-panel p{
+  display:block;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 2px;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
