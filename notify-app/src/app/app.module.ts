@@ -3,16 +3,16 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NotificationComponent } from './notification/notification.component';
+import { NotificationModule } from "./notification/notification.module";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NotificationComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NotificationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NotificationComponent } from "./notification/notification.component";
 
-const routes: Routes = [
-  {path: "notifications", component: NotificationComponent, pathMatch: 'full'}
-];
+const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

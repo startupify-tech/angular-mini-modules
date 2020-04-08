@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MessagingService } from "./messaging.service";
 
 @Component({
   selector: 'app-notification',
@@ -8,12 +7,7 @@ import { MessagingService } from "./messaging.service";
 })
 export class NotificationComponent implements OnInit {
 
-  public tempMsg;
-
-  constructor(private object: MessagingService) {
-
-    this.tempMsg = this.object.message;
-  }
+  constructor() { }
 
   ngOnInit(): void {
   }
