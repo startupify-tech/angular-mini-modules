@@ -1,0 +1,18 @@
+#bell{
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+
+#bell:focus{
+  box-shadow: none;
+}
+
+#bell i{
+  vertical-align: middle;
+  font-size: 18px;
+}
+#bell i:hover{
+  font-size: 19px;
+  color: #CBCBC6;
+}
