@@ -9,7 +9,6 @@ import { NotificationService } from '../notification.service';
 export class DropdownComponent implements OnInit {
 
   notifications: Notification[];
-  // visibility:boolean = false;
 
   constructor(private notificationService: NotificationService) {
     this.notifications = notificationService.getNotifications();
@@ -17,11 +16,5 @@ export class DropdownComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  // onBell(event: Event){
-  //   // console.log(event);
-  //   this.visibility = (<MouseEvent>event).returnValue;
-  //   console.log(this.visibility);
-  // }
 
 }

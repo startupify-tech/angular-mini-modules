@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { NotificationComponent } from './notification.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
-
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -11,7 +11,8 @@ import { DropdownComponent } from './dropdown/dropdown.component';
     DropdownComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule
   ],
   exports: [
     NotificationComponent,

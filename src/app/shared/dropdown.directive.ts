@@ -1,35 +1,26 @@
-import { Directive, HostListener, HostBinding,ElementRef } from '@angular/core';
+import { Directive, HostBinding, HostListener, Renderer2, ElementRef } from "@angular/core";
 
 @Directive({
   selector: '[appDropdown]'
 })
+
 export class DropdownDirective {
   @HostBinding('class.show') isOpen = false;
 
-  @HostListener('click') toggleOpen() {
-    this.isOpen = !this.isOpen;
-    console.log("Directive is working")
-  }
-  
-  //   private isOpen: boolean =false;
-  // constructor(private _el: ElementRef) {
-  //
-  // }
-  //
-  // @HostBinding('class.show') get opened() {
-  //     return this.isOpen;
-  // }
-  // @HostListener('click') open() {
-  //     this.isOpen = true;
-  //     this._el.nativeElement.querySelector('.dropdown-menu').classList.add('show')
-  // }
-  // @HostListener('document:click', ['$event.target']) close (targetElement) {
-  //     let inside: boolean = this._el.nativeElement.contains(targetElement);
-  //     if(!inside) {
-  //         this.isOpen = false;
-  //         this._el.nativeElement.querySelector('.dropdown-menu').classList.remove('show')
-  //     }
-  //
-  //   }
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
+  @HostListener('click', ['$event.target']) openDropdown(element: any) {
+
+    this.isOpen = !this.isOpen;
+    // using element ref
+    let dropdownMenu = this.elementRef.nativeElement.querySelector('.dropdown-menu');
+    // using renderer
+    // let dropdownMenu = this.renderer.nextSibling(element);
+    if (dropdownMenu) {
+      if(this.isOpen)
+      this.renderer.addClass(dropdownMenu, 'show');
+      else
+      this.renderer.removeClass(dropdownMenu, 'show');
+    }
+  }
 }

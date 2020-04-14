@@ -1,18 +1,12 @@
 #bell{
-  background-color: transparent;
-  border: none;
-  color: white;
+  border-radius: 10px;
 }
-
 #bell:focus{
   box-shadow: none;
 }
 
-#bell i{
-  vertical-align: middle;
-  font-size: 18px;
-}
-#bell i:hover{
-  font-size: 19px;
-  color: #CBCBC6;
+.dropdown-menu{
+  width: 20vw;
+  height: 50vh;
+  overflow: auto;
 }
