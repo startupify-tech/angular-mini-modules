@@ -15,8 +15,6 @@
   height: 90%;
   overflow: auto;
 }
-
-#view-all{
-  color: blue;
-  cursor: pointer;
+#highlight:hover{
+  background-color: #E5E5E5;
 }

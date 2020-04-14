@@ -6,7 +6,7 @@
   <div class="dropdown-menu dropdown-menu-right" *ngIf="notifications.length">
 
     <div class="overflow">
-      <div class="media pt-3" *ngFor= "let notification of notifications">
+      <div class="media pt-3" id="highlight" *ngFor= "let notification of notifications">
         <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32">
         <title>Placeholder</title>
@@ -14,6 +14,7 @@
       </svg>
       <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
         <strong class="d-block text-gray-dark">{{notification.title}}</strong>
+        <br>
         {{notification.text}}
       </p>
     </div>
@@ -21,7 +22,7 @@
 
   <div class="dropdown-divider"></div>
   <small class="d-block text-right mt-2 mr-2">
-    <a id="view-all" routerLink="/notifications">View all</a>
+    <a [routerLink]="['/notifications']">View all</a>
   </small>
 </div>
 </div>
