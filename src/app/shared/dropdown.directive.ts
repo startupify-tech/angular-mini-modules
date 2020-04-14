@@ -9,18 +9,34 @@ export class DropdownDirective {
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
-  @HostListener('click', ['$event.target']) openDropdown(element: any) {
+  @HostListener('click', ['$event.target']) openDropdown(element: any)  {
 
     this.isOpen = !this.isOpen;
     // using element ref
-    let dropdownMenu = this.elementRef.nativeElement.querySelector('.dropdown-menu');
-    // using renderer
-    // let dropdownMenu = this.renderer.nextSibling(element);
-    if (dropdownMenu) {
-      if(this.isOpen)
-      this.renderer.addClass(dropdownMenu, 'show');
-      else
-      this.renderer.removeClass(dropdownMenu, 'show');
+    if(this.isOpen){
+      this.elementRef.nativeElement.querySelector('.dropdown-menu').classList.add('show');
+    }
+    else{
+      this.elementRef.nativeElement.querySelector('.dropdown-menu').classList.remove('show');
+    }
+  }
+
+  @HostListener('document:click', ['$event.target']) close(targetElement: any) {
+
+    let inside: boolean = this.elementRef.nativeElement.contains(targetElement);
+    if(!inside){
+      this.isOpen = false;
+      this.elementRef.nativeElement.querySelector('.dropdown-menu').classList.remove('show')
     }
   }
 }
+
+
+//using renderer
+/*let dropdownMenu = this.renderer.nextSibling(element);
+if (dropdownMenu) {
+if(this.isOpen)
+this.renderer.addClass(dropdownMenu, 'show');
+else
+this.renderer.removeClass(dropdownMenu, 'show');
+}*/
