@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
 import { NotificationService } from '../notification.service';
+import { Notification } from '../notification.model';
+
 
 @Component({
   selector: 'app-dropdown',
@@ -8,13 +12,20 @@ import { NotificationService } from '../notification.service';
 })
 export class DropdownComponent implements OnInit {
 
-  notifications: Notification[];
+  notifications: Notification[]=[];
 
-  constructor(private notificationService: NotificationService) {
-    this.notifications = notificationService.getNotifications();
-  }
+  constructor(private http:HttpClient,private notificationService: NotificationService) {}
 
   ngOnInit(): void {
+    // this.notificationService.createNotifications()
+    this.notificationService.getNotifications().subscribe(
+      notifications => {
+        this.notifications = notifications;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }

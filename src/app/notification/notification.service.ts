@@ -1,25 +1,52 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
+
 import { Notification } from './notification.model';
+
 
 @Injectable({ providedIn: 'root' })
 export class NotificationService {
 
-  constructor() { }
+  constructor(private http:HttpClient) {}
+
+  // createNotifications(){
+  //   const notification = new Notification();
+  //   notification.title = "Daniel liked your post";
+  //   notification.text = "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.";
+  //   notification.createdAt = Date.now();
+  //   notification.targetUrl = "http://localhost:4200/";
+  //   this.http
+  //     .post(
+  //       'https://ng-notifications-9cb2b.firebaseio.com/notification.json',
+  //       notification
+  //     )
+  //     .subscribe(
+  //       responseData => {
+  //         console.log(responseData);
+  //       },
+  //       error => {
+  //         console.log(error)
+  //       }
+  //     );
+  // }
 
   public getNotifications() {
-    let notification = new Notification();
-    notification.title = "Daniel liked your post";
-    notification.text = "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.";
-    notification.createdAt = Date.now();
-    notification.targetUrl = "http://localhost:4200/";
-
-    let notifications = [];
-    notifications.push(notification);
-    notifications.push(notification);
-    notifications.push(notification);
-    notifications.push(notification);
-    notifications.push(notification);
-    return notifications;
+    return this.http
+    .get<{ [key: string]: Notification }>(
+      'https://ng-notifications-9cb2b.firebaseio.com/notification.json'
+    )
+    .pipe(
+      map(responseData => {
+        const notifications: Notification[] = [];
+        for (const key in responseData) {
+          if (responseData.hasOwnProperty(key)) {
+            notifications.push({ ...responseData[key]});
+          }
+        }
+        return notifications;
+      })
+    );
   }
 
 }
