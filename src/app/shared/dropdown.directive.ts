@@ -21,14 +21,14 @@ export class DropdownDirective {
     }
   }
 
-  // @HostListener('document:click', ['$event.target']) close(targetElement: any) {
-  //
-  //   let inside: boolean = this.elementRef.nativeElement.contains(targetElement);
-  //   if(!inside){
-  //     this.isOpen = false;
-  //     this.elementRef.nativeElement.querySelector('.dropdown-menu').classList.remove('show')
-  //   }
-  // }
+  @HostListener('document:click', ['$event.target']) close(targetElement: any) {
+
+    let inside: boolean = this.elementRef.nativeElement.contains(targetElement);
+    if(!inside){
+      this.isOpen = false;
+      this.elementRef.nativeElement.querySelector('.dropdown-menu').classList.remove('show')
+    }
+  }
 }
 
 

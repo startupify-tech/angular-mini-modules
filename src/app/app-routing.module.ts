@@ -6,10 +6,9 @@ import { DashboardComponent} from "./dashboard/dashboard.component";
 import { AuthComponent } from "./auth/auth.component";
 
 const routes: Routes = [
-  { path: '', component: AuthComponent, },
-  { path: 'dashboard', component: DashboardComponent, children:[
-    { path: 'notifications', component: NotificationComponent, }
-  ]},
+  // { path: '', component: AuthComponent, },
+  { path: 'dashboard', component: DashboardComponent,},
+  { path: 'notifications', component: NotificationComponent, }
 ];
 
 @NgModule({

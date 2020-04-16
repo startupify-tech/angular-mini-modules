@@ -8,6 +8,8 @@ import { Notification } from './notification.model';
 @Injectable({ providedIn: 'root' })
 export class NotificationService {
 
+  NOTIFICATION_END_POINT:string =  'https://ng-notifications-9cb2b.firebaseio.com/notification.json';
+
   constructor(private http:HttpClient) {}
 
   // createNotifications(){
@@ -18,7 +20,7 @@ export class NotificationService {
   //   notification.targetUrl = "http://localhost:4200/";
   //   this.http
   //     .post(
-  //       'https://ng-notifications-9cb2b.firebaseio.com/notification.json',
+  //       this.NOTIFICATION_END_POINT,
   //       notification
   //     )
   //     .subscribe(
@@ -34,7 +36,7 @@ export class NotificationService {
   public getNotifications() {
     return this.http
     .get<{ [key: string]: Notification }>(
-      'https://ng-notifications-9cb2b.firebaseio.com/notification.json'
+      this.NOTIFICATION_END_POINT
     )
     .pipe(
       map(responseData => {

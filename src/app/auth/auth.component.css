@@ -1,5 +1,6 @@
 
-body {
+.form-wrapper {
+  height: 100%;
   display: -ms-flexbox;
   display: -webkit-box;
   display: flex;
