@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NotificationModule } from "./notification/notification.module";
+
+import { DashboardModule } from "./dashboard/dashboard.module";
+import { AuthModule } from "./auth/auth.module";
 
 @NgModule({
   declarations: [
@@ -12,7 +14,8 @@ import { NotificationModule } from "./notification/notification.module";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NotificationModule,
+    DashboardModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
