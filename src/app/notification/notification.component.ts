@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {interval} from "rxjs/internal/observable/interval";
+import {startWith, switchMap} from "rxjs/operators";
 
 import { NotificationService } from './notification.service';
 import { Notification } from './notification.model';
@@ -17,8 +19,11 @@ export class NotificationComponent implements OnInit {
   constructor(private http:HttpClient,private notificationService: NotificationService) {}
 
   ngOnInit(): void {
-    // this.notificationService.createNotifications()
-    this.notificationService.getNotifications().subscribe(
+    interval(5000)
+    .pipe(
+      startWith(0),
+      switchMap(  () => this.notificationService.getNotifications()  )
+    ).subscribe(
       notifications => {
         this.notifications = notifications;
       },
@@ -26,6 +31,10 @@ export class NotificationComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  onAddNotifications() {
+    this.notificationService.createNotifications();
   }
 
 }
