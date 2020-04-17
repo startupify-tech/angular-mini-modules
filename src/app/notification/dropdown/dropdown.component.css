@@ -20,6 +20,9 @@
   padding: 0;
   padding-top: 1rem;
 }
+#highlight{
+  border-top: 1px solid #F7E7E7;
+}
 #highlight:hover{
   background-color: #E5E5E5;
 }

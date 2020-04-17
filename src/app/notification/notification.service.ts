@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map, catchError, take, exhaustMap } from 'rxjs/operators';
 
 import { Notification } from './notification.model';
+import { AuthService } from "../auth/auth.service";
 
 
 @Injectable({ providedIn: 'root' })
@@ -10,7 +11,7 @@ export class NotificationService {
 
   NOTIFICATION_END_POINT:string =  'https://ng-notifications-9cb2b.firebaseio.com/notification.json';
 
-  constructor(private http:HttpClient) {}
+  constructor(private http:HttpClient, private authService: AuthService) {}
 
   // createNotifications(){
   //   const notification = new Notification();
@@ -34,21 +35,24 @@ export class NotificationService {
   // }
 
   public getNotifications() {
-    return this.http
-    .get<{ [key: string]: Notification }>(
-      this.NOTIFICATION_END_POINT
-    )
-    .pipe(
-      map(responseData => {
-        const notifications: Notification[] = [];
-        for (const key in responseData) {
-          if (responseData.hasOwnProperty(key)) {
-            notifications.push({ ...responseData[key]});
-          }
+
+    return this.authService.user.pipe(take(1), exhaustMap( user => {
+      return this.http
+      .get<{ [key: string]: Notification }>(
+        this.NOTIFICATION_END_POINT,
+        {
+          params: new HttpParams().set('auth',user.token)
         }
-        return notifications;
-      })
-    );
+      )
+    }),map(responseData => {
+      const notifications: Notification[] = [];
+      for (const key in responseData) {
+        if (responseData.hasOwnProperty(key)) {
+          notifications.push({ ...responseData[key]});
+        }
+      }
+      return notifications;
+    }));
   }
 
 }
