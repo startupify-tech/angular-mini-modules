@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
+import {Observable} from 'rxjs';
+
 
 import { User } from './user.model';
 
@@ -24,9 +27,11 @@ export class AuthService{
   SIGNIN_ENDPOINT = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDMhc7iJZC7x0cw3A9Yi376itc7lVSx8GI";
   user = new BehaviorSubject<User>(null);
   private tokenExpirationTimer: any;
+  pollingData1: any;
+  pollingData2: any;
 
 
-  constructor(private http:HttpClient){}
+  constructor(private http:HttpClient, private router: Router){}
 
   signUp(email: string,password: string){
     return this.http.post<AuthResponseData>(this.SIGNUP_ENDPOINT,
@@ -70,8 +75,22 @@ export class AuthService{
     );
   }
 
+  setPollingData1(pollingData:any){
+    this.pollingData1 = pollingData;
+  }
+  setPollingData2(pollingData:any){
+    this.pollingData2 = pollingData;
+  }
+
   signOut() {
+    if(this.pollingData1) {
+      this.pollingData1.unsubscribe();
+    }
+    if(this.pollingData2) {
+      this.pollingData2.unsubscribe();
+    }
     this.user.next(null);
+    this.router.navigate(['']);
     localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
