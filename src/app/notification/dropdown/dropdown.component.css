@@ -1,5 +1,7 @@
 #bell{
-  border-radius: 10px;
+  border-radius: 30px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 #bell:focus{
   box-shadow: none;

@@ -30,6 +30,11 @@
   padding: var(--input-padding-y) var(--input-padding-x);
 }
 
+/* this is the only change that was needed */
+.form-label-group > input{
+  height: auto;
+}
+
 .form-label-group > label {
   position: absolute;
   top: 0;
