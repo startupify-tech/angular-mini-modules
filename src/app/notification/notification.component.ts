@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {interval} from "rxjs/internal/observable/interval";
 import {startWith, switchMap} from "rxjs/operators";
-import {Observable} from 'rxjs';
+import {Subscription, Observable} from 'rxjs';
 
 import { NotificationService } from './notification.service';
 import { AuthService } from '../auth/auth.service';
@@ -14,14 +14,42 @@ import { Notification } from './notification.model';
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.css']
 })
-export class NotificationComponent implements OnInit {
+export class NotificationComponent implements OnInit, OnDestroy {
 
   notifications: Notification[]=[];
-  pollingData: any;
+  pollingData: Subscription;
+  userSub: Subscription;
 
   constructor(private http:HttpClient,private notificationService: NotificationService, private authService: AuthService) {}
 
   ngOnInit(): void {
+
+    // this.notificationService.getNotifications().subscribe(
+    //   notifications => {
+    //     this.notifications = notifications;
+    //     this.notifications.reverse();
+    //   },
+    //   error => {
+    //     console.log(error);
+    //   }
+    // );
+
+    this.userSub = this.authService.user.subscribe( user => {
+      if(user) {
+        this.onStartPolling();
+      } else {
+        this.onStopPolling();
+      }
+    });
+
+  }
+
+  onAddNotifications() {
+    this.notificationService.createNotifications();
+  }
+
+  onStartPolling() {
+    console.log("polling started.");
     this.pollingData = interval(5000)
     .pipe(
       startWith(0),
@@ -32,15 +60,20 @@ export class NotificationComponent implements OnInit {
         this.notifications.reverse();
       },
       error => {
-        console.log(error);
+        console.log("Polling Error:",error);
       }
     );
 
-    this.authService.setPollingData1(this.pollingData);
   }
 
-  onAddNotifications() {
-    this.notificationService.createNotifications();
+  onStopPolling() {
+    this.pollingData.unsubscribe();
+    console.log("polling stopped.");
+  }
+
+  ngOnDestroy(): void {
+    // this.onStopPolling();
+    this.userSub.unsubscribe();
   }
 
 

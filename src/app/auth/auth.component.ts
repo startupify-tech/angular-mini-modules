@@ -42,7 +42,7 @@ export class AuthComponent implements OnInit {
 
     authObs.subscribe(responseData =>{
       console.log(responseData);
-      this.router.navigate(['']);
+      this.router.navigate(['/dashboard']);
     },error =>{
       console.log(error);
       this.error = error;

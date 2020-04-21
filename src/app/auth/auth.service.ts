@@ -27,8 +27,6 @@ export class AuthService{
   SIGNIN_ENDPOINT = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDMhc7iJZC7x0cw3A9Yi376itc7lVSx8GI";
   user = new BehaviorSubject<User>(null);
   private tokenExpirationTimer: any;
-  pollingData1: any;
-  pollingData2: any;
 
 
   constructor(private http:HttpClient, private router: Router){}
@@ -75,20 +73,8 @@ export class AuthService{
     );
   }
 
-  setPollingData1(pollingData:any){
-    this.pollingData1 = pollingData;
-  }
-  setPollingData2(pollingData:any){
-    this.pollingData2 = pollingData;
-  }
 
   signOut() {
-    if(this.pollingData1) {
-      this.pollingData1.unsubscribe();
-    }
-    if(this.pollingData2) {
-      this.pollingData2.unsubscribe();
-    }
     this.user.next(null);
     this.router.navigate(['']);
     localStorage.removeItem('userData');
