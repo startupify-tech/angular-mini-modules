@@ -19,6 +19,7 @@ export class DropdownComponent implements OnInit, OnDestroy {
   notifications: Notification[]=[];
   pollingData: Subscription;
   userSub: Subscription;
+  pollingStopped: boolean = false;
 
   constructor(private http:HttpClient,private notificationService: NotificationService, private authService: AuthService) {}
 
@@ -63,12 +64,17 @@ export class DropdownComponent implements OnInit, OnDestroy {
   }
 
   onStopPolling() {
-    this.pollingData.unsubscribe();
-    console.log("polling stopped.");
+    if(this.pollingData) {
+      this.pollingData.unsubscribe();
+      this.pollingStopped = true;
+      console.log("polling stopped.");
+    }
   }
 
   ngOnDestroy(): void {
-    // this.onStopPolling();
+    if(this.pollingStopped==false) {
+      this.onStopPolling();
+    }
     this.userSub.unsubscribe();
   }
 
