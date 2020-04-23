@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { NotificationComponent } from './notification.component';
-import { DropdownComponent } from './dropdown/dropdown.component';
+import { NotificationDropdownComponent } from './notification-dropdown/notification-dropdown.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
     NotificationComponent,
-    DropdownComponent,
+    NotificationDropdownComponent,
   ],
   imports: [
     CommonModule,
@@ -20,8 +20,7 @@ import { SharedModule } from '../shared/shared.module';
   ],
   exports: [
     NotificationComponent,
-    DropdownComponent
-  ],
-  // bootstrap: [NotificationComponent]
+    NotificationDropdownComponent
+  ]
 })
 export class NotificationModule { }

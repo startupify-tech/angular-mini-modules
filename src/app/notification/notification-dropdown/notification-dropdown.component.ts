@@ -3,17 +3,17 @@ import { interval } from "rxjs/internal/observable/interval";
 import { startWith, switchMap } from "rxjs/operators";
 import { Subscription } from 'rxjs';
 
-import { NotificationService } from './notification.service';
-import { AuthService } from '../auth/auth.service';
-import { Notification } from './notification.model';
+import { NotificationService } from '../notification.service';
+import { Notification } from '../notification.model';
+import { AuthService } from '../../auth/auth.service';
 
 
 @Component({
-  selector: 'app-notification',
-  templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.css']
+  selector: 'app-notification-dropdown',
+  templateUrl: './notification-dropdown.component.html',
+  styleUrls: ['./notification-dropdown.component.css']
 })
-export class NotificationComponent implements OnInit, OnDestroy {
+export class NotificationDropdownComponent implements OnInit, OnDestroy {
 
   notifications: Notification[] = [];
   notifications$: Subscription;
@@ -30,10 +30,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
         this.onStopPolling();
       }
     });
-  }
-
-  onAddNotifications() {
-    this.notificationService.createNotifications();
   }
 
   onStartPolling() {

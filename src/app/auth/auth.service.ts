@@ -3,9 +3,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
-import {Observable} from 'rxjs';
-
-
 import { User } from './user.model';
 
 
@@ -20,26 +17,24 @@ export interface AuthResponseData {
 }
 
 @Injectable({ providedIn: 'root' })
-
-export class AuthService{
+export class AuthService {
 
   SIGNUP_ENDPOINT = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDMhc7iJZC7x0cw3A9Yi376itc7lVSx8GI";
   SIGNIN_ENDPOINT = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDMhc7iJZC7x0cw3A9Yi376itc7lVSx8GI";
+
   user = new BehaviorSubject<User>(null);
   private tokenExpirationTimer: any;
 
+  constructor(private http: HttpClient, private router: Router) { }
 
-  constructor(private http:HttpClient, private router: Router){}
-
-  signUp(email: string,password: string){
+  signUp(email: string, password: string) {
     return this.http.post<AuthResponseData>(this.SIGNUP_ENDPOINT,
       {
         email: email,
         password: password,
         returnSecureToken: true
       }
-    )
-    .pipe(
+    ).pipe(
       catchError(this.handleError),
       tap(resData => {
         this.handleAuthentication(
@@ -52,15 +47,14 @@ export class AuthService{
     );
   }
 
-  signIn(email: string,password: string){
+  signIn(email: string, password: string) {
     return this.http.post<AuthResponseData>(this.SIGNIN_ENDPOINT,
       {
         email: email,
         password: password,
         returnSecureToken: true
       }
-    )
-    .pipe(
+    ).pipe(
       catchError(this.handleError),
       tap(resData => {
         this.handleAuthentication(
@@ -72,7 +66,6 @@ export class AuthService{
       })
     );
   }
-
 
   signOut() {
     this.user.next(null);
@@ -105,8 +98,8 @@ export class AuthService{
     if (loadedUser.token) {
       this.user.next(loadedUser);
       const expirationDuration =
-      new Date(userData._tokenExpirationDate).getTime() -
-      new Date().getTime();
+        new Date(userData._tokenExpirationDate).getTime() -
+        new Date().getTime();
       this.autoLogout(expirationDuration);
     }
   }
@@ -137,14 +130,14 @@ export class AuthService{
     }
     switch (errorRes.error.error.message) {
       case 'EMAIL_EXISTS':
-      errorMessage = 'This email exists already.';
-      break;
+        errorMessage = 'This email exists already.';
+        break;
       case 'EMAIL_NOT_FOUND':
-      errorMessage = 'This email does not exist.';
-      break;
+        errorMessage = 'This email does not exist.';
+        break;
       case 'INVALID_PASSWORD':
-      errorMessage = 'This password is not correct.';
-      break;
+        errorMessage = 'This password is not correct.';
+        break;
     }
     return throwError(errorMessage);
   }

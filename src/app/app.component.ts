@@ -13,12 +13,12 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'angular-mini-modules';
 
   isLoggedIn: boolean = false;
-  private userSub: Subscription;
+  private user$: Subscription;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.userSub = this.authService.user.subscribe( user => {
+    this.user$ = this.authService.user.subscribe( user => {
       this.isLoggedIn = !!user;
       console.log(!user);
       console.log(!!user);
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userSub.unsubscribe();
+    this.user$.unsubscribe();
   }
 
 }

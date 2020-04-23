@@ -31,7 +31,10 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
   - UPPERCASE <- for const and enums
 - Used 4 spaces format for indentation. Always format code using VS Code format document option (Ctrl+Alt+F for windows) before committing the code.
 - Any variable, constant or type name should not exceed 32 chars.
+- Use dollar(`$`) suffix, for naming variables of type observables or subjects.
 - Try to add comments wherever possible or logic is complex with online reference if available.
+- Review, cleanup and remove redundant code before pushing changes to repository.
+- Never check in secrets, passwords or protected URLs with code. Use env or other config file for saving confidential settings.
 
 ## Further help
 

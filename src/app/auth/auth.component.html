@@ -1,24 +1,25 @@
 <div class="form-wrapper">
 
-  <form class="form-signin" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+  <form class="form-sign-in" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
     <div class="alert alert-danger" *ngIf="error">
       <p>{{error}}</p>
     </div>
     <div class="text-center mb-4">
-      <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+      <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72"
+        height="72">
       <h1 class="h3 mb-3 font-weight-normal">Startupify Tech</h1>
       <p>MAKE YOUR STARTUP DREAM A REALITY <br> LET US BUILD YOUR OWN STARTUP</p>
     </div>
 
     <div class="form-label-group">
-      <input type="email" id="inputEmail" class="form-control" placeholder="Email address"
-       ngModel name="email" required email autofocus>
+      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" ngModel name="email" required
+        email autofocus>
       <label for="inputEmail">Email address</label>
     </div>
 
     <div class="form-label-group">
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password"
-      ngModel name="password" required minlength="6">
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" ngModel name="password"
+        required minlength="6">
       <label for="inputPassword">Password</label>
     </div>
 

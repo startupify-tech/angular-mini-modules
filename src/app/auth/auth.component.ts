@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-
 import { AuthService, AuthResponseData } from "./auth.service";
 
 @Component({
@@ -13,20 +12,20 @@ import { AuthService, AuthResponseData } from "./auth.service";
 })
 export class AuthComponent implements OnInit {
 
-  isSignInMode: boolean = true;
-  error: string = null;
+  isSignInMode = true;
+  error: string;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  onSwitchMode(){
+  onSwitchMode() {
     this.isSignInMode = !this.isSignInMode;
   }
 
-  onSubmit(form: NgForm){
-    if(!form.valid){
+  onSubmit(form: NgForm) {
+    if (!form.valid) {
       return;
     }
     const email = form.value.email;
@@ -34,20 +33,19 @@ export class AuthComponent implements OnInit {
 
     let authObs: Observable<AuthResponseData>;
 
-    if(this.isSignInMode){
-      authObs = this.authService.signIn(email,password);
-    } else{
-      authObs = this.authService.signUp(email,password);
+    if (this.isSignInMode) {
+      authObs = this.authService.signIn(email, password);
+    } else {
+      authObs = this.authService.signUp(email, password);
     }
 
-    authObs.subscribe(responseData =>{
+    authObs.subscribe(responseData => {
       console.log(responseData);
       this.router.navigate(['/dashboard']);
-    },error =>{
+    }, error => {
       console.log(error);
       this.error = error;
     });
-
 
     form.reset();
   }

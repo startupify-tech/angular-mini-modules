@@ -3,40 +3,26 @@ import { Directive, HostBinding, HostListener, Renderer2, ElementRef } from "@an
 @Directive({
   selector: '[appDropdown]'
 })
-
 export class DropdownDirective {
   @HostBinding('class.show') isOpen = false;
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
 
-  @HostListener('click', ['$event.target']) openDropdown(element: any)  {
-
+  @HostListener('click', ['$event.target']) openDropdown(element: any) {
     this.isOpen = !this.isOpen;
     // using element ref
-    if(this.isOpen){
+    if (this.isOpen) {
       this.elementRef.nativeElement.querySelector('.dropdown-menu').classList.add('show');
-    }
-    else{
+    } else {
       this.elementRef.nativeElement.querySelector('.dropdown-menu').classList.remove('show');
     }
   }
 
   @HostListener('document:click', ['$event.target']) close(targetElement: any) {
-
     let inside: boolean = this.elementRef.nativeElement.contains(targetElement);
-    if(!inside){
+    if (!inside) {
       this.isOpen = false;
       this.elementRef.nativeElement.querySelector('.dropdown-menu').classList.remove('show')
     }
   }
 }
-
-
-//using renderer
-/*let dropdownMenu = this.renderer.nextSibling(element);
-if (dropdownMenu) {
-if(this.isOpen)
-this.renderer.addClass(dropdownMenu, 'show');
-else
-this.renderer.removeClass(dropdownMenu, 'show');
-}*/

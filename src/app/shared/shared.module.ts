@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { DropdownDirective } from './dropdown.directive';
 
 @NgModule({
@@ -13,7 +14,6 @@ import { DropdownDirective } from './dropdown.directive';
     DropdownDirective,
   ]
 })
+export class SharedModule {
 
-export class SharedModule{
-  
 }
